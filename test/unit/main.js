@@ -135,20 +135,20 @@ describe('Returns', function () {
 
 
 describe('getFingerprint()', function () {
-    var ua1 = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
-    var ua2 = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15';
+    const ua1 = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+    const ua2 = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15';
 
     it('should return a number', function () {
         assert.strictEqual(typeof new UAParser(ua1).getFingerprint(), 'number');
     });
 
     it('should return an unsigned 32-bit integer', function () {
-        var fp = new UAParser(ua1).getFingerprint();
+        const fp = new UAParser(ua1).getFingerprint();
         assert.ok(fp >= 0 && fp <= 0xffffffff);
     });
 
     it('should be deterministic — same UA produces same fingerprint', function () {
-        var parser = new UAParser(ua1);
+        const parser = new UAParser(ua1);
         assert.strictEqual(parser.getFingerprint(), parser.getFingerprint());
     });
 
@@ -157,13 +157,13 @@ describe('getFingerprint()', function () {
     });
 
     it('should match getResult().fingerprint', function () {
-        var parser = new UAParser(ua1);
+        const parser = new UAParser(ua1);
         assert.strictEqual(parser.getFingerprint(), parser.getResult().fingerprint);
     });
 
     it('should update after setUA()', function () {
-        var parser = new UAParser(ua1);
-        var fp1 = parser.getFingerprint();
+        const parser = new UAParser(ua1);
+        const fp1 = parser.getFingerprint();
         parser.setUA(ua2);
         assert.notStrictEqual(parser.getFingerprint(), fp1);
     });
